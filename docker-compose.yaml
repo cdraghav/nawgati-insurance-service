@@ -1,0 +1,17 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: nawgati_insurance_pg
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: nawgati_insurance
+      POSTGRES_USER: nawgati
+      POSTGRES_PASSWORD: nawgati_pass
+    ports:
+      - "5432:5432"
+    volumes:
+      - nawgati_insurance_pg_data:/var/lib/postgresql/data
+      - ./src/db/migrations/001_initial_schema.sql:/docker-entrypoint-initdb.d/001_initial_schema.sql:ro
+
+volumes:
+  nawgati_insurance_pg_data:
